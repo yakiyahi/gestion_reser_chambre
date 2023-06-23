@@ -58,7 +58,19 @@ function new_room() {
 
     });
 }
+function new_reserv() {
 
+    $.ajax({
+        url: "/gestion_reser_chambre/add_reserver_form.php",
+        type: "GET",
+        dataType: "html",
+        success: function (data) {
+            $("#main").html(data);
+
+        },
+
+    });
+}
 function save_cust() {
     //On recupere les informations saisis par l'utilisateur
     var name = $("#name").val();
@@ -148,26 +160,55 @@ function save_room() {
 
     //On verifie si on a remplit tous les champs
     var empty = id == "" || type == "" || etage == "" || prix == "" || dispo == '';
-    console.log(empty);
+
     if (empty) {
         //Si les champs sont vide alors on affiche cette message
-        alert("veillez saisir tous les champs");
+        //alert("veillez saisir tous les champs");
+        var msg = '<div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top:30px">\
+        <strong>Atention !</strong> Veillez saisir tous les champs.\
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div>';
+        $(".message").html(msg);
+
     } else {
+        var mydata = { id: id, type: type, etage: etage, prix: prix, dispo: dispo };
+
         $.ajax({
             url: "/gestion_reser_chambre/add_room.php",
             type: "POST",
-            dataType: "json",
-            data: { id: id, type: type, etage: etage, prix: prix, dispo: dispo },
+            data: mydata,
             success: function (data) {
+                if (data == "SUCCESS") {
+                    var msg = '<div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top:30px">\
+                    <strong>MESSAGE !</strong> L\'operation a été effectuée avec succée.\
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div>';
 
-                $("#main").html(data);
-                alert("Operation effectuée avec succée");
+                    $("#id").val('');
+                    $("#type").val('');
+                    $("#etage").val('');
+                    $("#prix").val('');
+                    $("#dispo").val('');
+
+                } else if (data == "EXISTE") {
+                    var msg = '<div class="alert alert-error alert-dismissible fade show" role="alert" style="margin-top:30px">\
+                    <strong>Attention !</strong> Le numero du chambre saisis existe deja.\
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div>';
+                }
+                else {
+                    var msg = '<div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top:30px">\
+                    <strong>Erreur!</strong> La requete demandé a echouée.\
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                      <span aria-hidden="true">&times;</span>\
+                    </button>\
+                  </div>';
+                }
+
+                $(".message").html(msg);
+
+                //fech_room();
+                //alert(data);
 
             },
-            error: function (e) {
-                alert("Impossible d'ajouter la chambre");
-                console.log(e);
-            }
+
 
         });
     }

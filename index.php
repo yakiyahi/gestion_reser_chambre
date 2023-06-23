@@ -84,7 +84,7 @@
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="">Nouveau</a>
+                                <a class="nav-link" href="#" onclick="new_reserv()">Nouveau</a>
                                 <a class="nav-link" href="" id="listreserv">Lister</a>
 
                             </nav>
@@ -159,8 +159,6 @@
     <script src="js/jquery-3.7.0.min.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/myscript.js"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="js/datatables-simple-demo.js"></script>
 </body>
 

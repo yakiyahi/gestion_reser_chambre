@@ -14,17 +14,24 @@ if (isset($_POST)) {
     $empty = $id == '' || $type == '' || $etage == '' || $prix == '' || $dispo == "";
 
     if (!$empty) {
+        try {
+            $query = "INSERT INTO `chambre` (`Id_chambre`, `Type_chambre`, `Etage_chambre`, `Prix_chambre`, `Disp_chambre`) VALUES ('$id', '$type', '$etage', '$prix', '$dispo')";
+            $result = mysqli_query($conn, $query);
 
-        $query = "INSERT INTO `chambre` (`Id_chambre`, `Type_chambre`, `Etage_chambre`, `Prix_chambre`, `Disp_chambre`) VALUES ('$id', '$type', '$etage', '$prix', '$dispo')";
-        $result = mysqli_query($conn, $query);
+            $message = "SUCCESS";
+            $error =  "ERROR";
 
-        if ($result) {
+            if ($result) {
 
-            header('location:list_room.php');
-        } else {
-            echo "Impossible d'ajouter cette chambre";
+                echo $message;
+            } else {
+                echo $error;
+            }
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            echo $error;
         }
     } else {
-        echo "Les données sont vide";
+        echo "Veillez saisir tous les champs";
     }
 }

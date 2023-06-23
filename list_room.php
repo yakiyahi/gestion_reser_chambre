@@ -18,7 +18,7 @@ function list_rooms()
     }
 }
 echo ' <div class="container">
-<div class="message"></div>
+<div id="message"></div>
 <div class="card" style="margin-top:10px;">
     <h3 class="card-header bg-primary text-light text-center text-lg"><b>Liste des chambres</b> </h3>
     <div class="card-body">';

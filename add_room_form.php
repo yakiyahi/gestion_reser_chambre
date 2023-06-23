@@ -32,7 +32,10 @@
                 <div class="col-md-6">
                     <div class="form-group" style="padding-bottom:30px;padding-right:10px;">
                         <label for="dispo">Disponibilité du chambre</label>
-                        <input class="form-control " type="text" name="dispo" placeholder="Disponibilité du chambre" id="dispo">
+                        <select name="dispo" class="form-control" id="dispo">
+                            <option value="OUI">OUI</option>
+                            <option value="NON">NON</option>
+                        </select>
                     </div>
                 </div>
 
